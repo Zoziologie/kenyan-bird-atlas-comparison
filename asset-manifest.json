@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/kenyan-bird-atlas-comparison/static/js/main.918c3452.chunk.js",
+    "main.js.map": "/kenyan-bird-atlas-comparison/static/js/main.918c3452.chunk.js.map",
+    "runtime-main.js": "/kenyan-bird-atlas-comparison/static/js/runtime-main.376c9348.js",
+    "runtime-main.js.map": "/kenyan-bird-atlas-comparison/static/js/runtime-main.376c9348.js.map",
+    "static/js/2.e809571a.chunk.js": "/kenyan-bird-atlas-comparison/static/js/2.e809571a.chunk.js",
+    "static/js/2.e809571a.chunk.js.map": "/kenyan-bird-atlas-comparison/static/js/2.e809571a.chunk.js.map",
+    "index.html": "/kenyan-bird-atlas-comparison/index.html",
+    "static/js/2.e809571a.chunk.js.LICENSE.txt": "/kenyan-bird-atlas-comparison/static/js/2.e809571a.chunk.js.LICENSE.txt",
+    "static/js/mapbox-gl-csp-worker.0f0a3356.worker.js": "/kenyan-bird-atlas-comparison/static/js/mapbox-gl-csp-worker.0f0a3356.worker.js",
+    "static/js/mapbox-gl-csp-worker.0f0a3356.worker.js.map": "/kenyan-bird-atlas-comparison/static/js/mapbox-gl-csp-worker.0f0a3356.worker.js.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.376c9348.js",
+    "static/js/2.e809571a.chunk.js",
+    "static/js/main.918c3452.chunk.js"
+  ]
+}
