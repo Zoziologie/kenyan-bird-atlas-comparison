@@ -8,7 +8,8 @@
     "colormap": "^2.3.2",
     "jquery": "^3.6.0",
     "mapbox-gl": "^2.2.0",
-    "select2": "^4.1.0-rc.0"
+    "select2": "^4.1.0-rc.0",
+    "spin.js": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
@@ -31,13 +32,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/A-Rocha-Kenya/kenyan-bird-atlas-comparison.git"
+    "url": "git+https://github.com/zoziologie/kenyan-bird-atlas-comparison.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/A-Rocha-Kenya/kenyan-bird-atlas-comparison/issues"
+    "url": "https://github.com/zoziologie/kenyan-bird-atlas-comparison/issues"
   },
-  "homepage": "https://A-Rocha-Kenya.github.io/kenyan-bird-atlas-comparison"
+  "homepage": "http://zoziologie.raphaelnussbaumer.com/kenyan-bird-atlas-comparison/"
 }

@@ -3,17 +3,46 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Comparison of the Kenyan bird atlas</title>
+  <link rel="icon" href="/assets/logo.png">
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
   <link href='https://api.mapbox.com/mapbox-assembly/v0.26.0/assembly.min.css' rel='stylesheet'>
 </head>
 
-<body class="h-full w-full grid">
-  <div class="col" id="mapOLD"></div>
-  <div class="col" id="mapNEW"></div>
-  <div class="absolute my-auto mx-auto py12 px24 bg-white">
-    <select class="w240" id="species" data-tags="true" data-placeholder="Select an option" data-allow-clear="true"></select>
+<body class="h-full w-full flex-parent flex-parent--column">
+  <div class="align-center py12 px24 bg-white">
+    <div class='grid grid--gut12 align-center'>
+      <div class='col'>
+        <select class="w300" id="species" data-tags="true" data-placeholder="Select an species" data-allow-clear="true"><option></option></select>
+      </div>
+      <div class='col'>
+        <a target="_blank" id="ebird" href="https://ebird.org/species/borowl/KE" ><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Logo_ebird.png" height=40></a>
+      </div>
+      <div class='col'>
+        <a target="_blank" id="iucn" href="https://apiv3.iucnredlist.org/api/v3/taxonredirect/45020636"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/ec/IUCN_Red_List.svg/1200px-IUCN_Red_List.svg.png" height=40></a>
+      </div>
+      <div class='col'>
+        <a target="_blank" id="kbm" href="http://kenyabirdmap.adu.org.za/species_info.php?spp=1"><img src="http://kenyamap.adu.org.za/images/KBM_logo_final_248x150_tr.png" height=40></a>
+      </div>
+      <div class='col'>
+        <a target="_blank" id="avibase" href="https://avibase.bsc-eoc.org/species.jsp?avibaseid=2247CB050A76CF8E"><img src="https://avibase.bsc-eoc.org/images/fairywren_395.png" height=40> Avibase</a>
+      </div>
+      <div class='col'>
+        <a target="_blank" id="inaturalist" href="https://www.inaturalist.org/observations?place_id=7042&amp;taxon_id=20526"><img src="https://conf2020.geobon.org/img/projects/inat/inat.png" height=40></a>
+      </div>
+      <div class='col'>
+        <a target="_blank" id="observado" href="https://observation.org/species/16601"><img src="https://observation.org/static/img/logo/logo-obs-white-192x192.png" height=40></a>
+      </div>
+      <div class='col'>
+        <a target="_blank" id="gbif" href="https://www.gbif.org/species/2495150"><img src="https://images.ctfassets.net/uo17ejk9rkwj/4rmEF9F4ZGiCwQk2WSMcce/b47146eacaf7b0dfc166656678c7ffe6/GBIF-2015.png" height=40></a>
+      </div>
+    </div>
   </div>
+  <div class="flex-parent flex-parent--row flex-child--grow">
+    <div class="flex-child flex-child--grow" id="mapOLD"></div>
+    <div class="flex-child flex-child--grow" id="mapNEW"></div>
+  </div>
+  
   
 </body>
 
