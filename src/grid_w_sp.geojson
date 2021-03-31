@@ -563,7 +563,7 @@
             "properties": {
                 "SqL": "c",
                 "SqN": 3,
-                "sp_list": 348,
+                "sp_list": [348],
                 "sp_nb": 1
             },
             "geometry": {
@@ -3335,7 +3335,7 @@
             "properties": {
                 "SqL": "c",
                 "SqN": 17,
-                "sp_list": 2832,
+                "sp_list": [2832],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4193,7 +4193,7 @@
             "properties": {
                 "SqL": "a",
                 "SqN": 30,
-                "sp_list": 3954,
+                "sp_list": [3954],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4215,7 +4215,7 @@
             "properties": {
                 "SqL": "b",
                 "SqN": 30,
-                "sp_list": 3876,
+                "sp_list": [3876],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4347,7 +4347,7 @@
             "properties": {
                 "SqL": "d",
                 "SqN": 42,
-                "sp_list": 3150,
+                "sp_list": [3150],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4765,7 +4765,7 @@
             "properties": {
                 "SqL": "a",
                 "SqN": 19,
-                "sp_list": 541,
+                "sp_list": [541],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4787,7 +4787,7 @@
             "properties": {
                 "SqL": "b",
                 "SqN": 19,
-                "sp_list": 1168,
+                "sp_list": [1168],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4831,7 +4831,7 @@
             "properties": {
                 "SqL": "d",
                 "SqN": 19,
-                "sp_list": 83,
+                "sp_list": [83],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4853,7 +4853,7 @@
             "properties": {
                 "SqL": "a",
                 "SqN": 31,
-                "sp_list": 61,
+                "sp_list": [61],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4875,7 +4875,7 @@
             "properties": {
                 "SqL": "c",
                 "SqN": 67,
-                "sp_list": 63,
+                "sp_list": [63],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4897,7 +4897,7 @@
             "properties": {
                 "SqL": "a",
                 "SqN": 80,
-                "sp_list": 66,
+                "sp_list": [66],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4919,7 +4919,7 @@
             "properties": {
                 "SqL": "c",
                 "SqN": 80,
-                "sp_list": 57,
+                "sp_list": [57],
                 "sp_nb": 1
             },
             "geometry": {
@@ -4941,7 +4941,7 @@
             "properties": {
                 "SqL": "d",
                 "SqN": 80,
-                "sp_list": 1,
+                "sp_list": [1],
                 "sp_nb": 1
             },
             "geometry": {
