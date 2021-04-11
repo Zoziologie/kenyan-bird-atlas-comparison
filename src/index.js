@@ -10,8 +10,17 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import "select2/dist/css/select2.min.css";
 import "spin.js/spin.css";
 
-const oldAtlas = require('./grid_w_sp.geojson');
+var oldAtlas = require('./grid_w_sp.geojson');
+oldAtlas.features = oldAtlas.features.map( x => {
+    x.properties.hide = x.properties.sp_nb==0 ? 1 : 0
+    x.properties.popup = '<b>grid:</b> ' + x.properties.SqN + x.properties.SqL + '<br>' + '<b>Number of species:</b> ' + x.properties.sp_nb    
+    return x
+})
 const speciesList = require('./2019_checklist_of_the_birds_of_kenya_short.json');
+const table_data = require('./table_export.json');
+const status = ['','Presence','Probable breeding','Confirmed breeding'];
+
+var table_adu=table_data
 
 var opts = {
     lines: 11, // The number of lines to draw
@@ -62,16 +71,20 @@ mapOLD.on('load', function () {
         data: oldAtlas
     });
 
+    var max = oldAtlas.features.reduce((acc, x) => Math.max(acc, x.properties["sp_nb"]), 0);
+    var min = oldAtlas.features.reduce((acc, x) => Math.min(acc, x.properties["sp_nb"]), 10000);
+    
+
     mapOLD.addLayer({
         'id': 'grid_w_sp_l',
         'type': 'fill',
         'source': 'grid_w_sp',
         'layout': {},
         'paint': {
-            'fill-color': getFillColor(colormap_name,oldAtlas,'sp_nb'),
+            'fill-color': getFillColor(colormap_name, min, max, 'sp_nb'),
             'fill-opacity': 0.8
         },
-        "filter": ["!=", "sp_nb", 0]
+        "filter": ["!=", "hide", 1]
     });
 });
 
@@ -82,6 +95,10 @@ mapNEW.on('load', function () {
             type: 'geojson',
             data: coverageKBM
         });
+
+        var max = coverageKBM.features.reduce((acc, x) => Math.max(acc, x.properties["full protocol"]), 0);
+        var min = coverageKBM.features.reduce((acc, x) => Math.min(acc, x.properties["full protocol"]), 10000);
+    
     
         mapNEW.addLayer({
             'id': 'grid_KBM_l',
@@ -89,7 +106,7 @@ mapNEW.on('load', function () {
             'source': 'grid_KBM',
             'layout': {},
             'paint': {
-                'fill-color': getFillColor(colormap_name,coverageKBM,"full protocol"),
+                'fill-color': getFillColor(colormap_name,min,max,"full protocol"),
                 'fill-opacity': 0.8
             }
         });
@@ -108,9 +125,7 @@ var popupOLD = new mapboxgl.Popup({
 });
 mapOLD.on('mousemove', 'grid_w_sp_l', function (e) {
     mapOLD.getCanvas().style.cursor = 'pointer';
-    var prop = e.features[0].properties;
-    var description = '<b>grid:</b> ' + prop.SqN + prop.SqL + '<br>' + '<b>Number of species:</b> ' + prop.sp_nb
-    popupOLD.setLngLat(e.lngLat).setHTML(description).addTo(mapOLD);
+    popupOLD.setLngLat(e.lngLat).setHTML(e.features[0].properties.popup).addTo(mapOLD);
 }).on('mouseleave', 'grid_w_sp_l', function () {
     mapOLD.getCanvas().style.cursor = '';
     popupOLD.remove();
@@ -131,15 +146,12 @@ mapNEW.on('mousemove', 'grid_KBM_l', function (e) {
 });
 
 
-const getFillColor = (colormap_name,data,prop) => {
+const getFillColor = (colormap_name,min,max,prop) => {
 
     let colors = colormap({
         colormap: colormap_name,
         //nshades: 10
     })
-
-    var max = data.features.reduce((acc, x) => Math.max(acc, x.properties[prop]), 0);
-    var min = data.features.reduce((acc, x) => Math.min(acc, x.properties[prop]), 10000);
 
     var c = ['interpolate', ['linear'],
         ['get', prop]
@@ -163,24 +175,28 @@ $("#species").select2({
 })
 
 $('#species').on('select2:select', function (e) {
+
+    // Get species information from the selectize
     var spListData = e.params.data;
-    console.log(spListData)
-    let oldAtlasSp = oldAtlas;
-    oldAtlasSp.features.map( x=>{
-        if (x.properties.sp_list.includes(spListData.ADU) ){
-            x.properties.sp_nb=1
-        } else{
-            x.properties.sp_nb=0
-        }
-        return x
-    })
-    mapOLD.getSource('grid_w_sp').setData(oldAtlasSp);
+
+    // Update the data used for mapping the old map
+    table_adu = table_data.filter( x => x.ADU == spListData.ADU);
+    UpdateOldMap()
+  
+    // Update the new map
     new Spinner(opts).spin(document.getElementById('mapNEW'));
     $.getJSON('http://api.adu.org.za/sabap2/v2/summary/species/'+spListData.ADU+'/country/kenya?format=geoJSON',function (dataKBM){
         mapNEW.getSource('grid_KBM').setData(dataKBM);
+        var max = dataKBM.features.reduce((acc, x) => Math.max(acc, x.properties["full protocol"]), 0);
+        var min = dataKBM.features.reduce((acc, x) => Math.min(acc, x.properties["full protocol"]), 10000);
+        mapNEW.setPaintProperty('grid_KBM_l','fill-color',getFillColor(colormap_name, min, max, 'full protocol'))
         $(".spinner").remove();
     })
 
+    
+    
+
+    // Update the links
     $('#ebird').attr("href","https://ebird.org/species/"+spListData['Clements--code']+"/KE")
     $('#iucn').attr("href","https://apiv3.iucnredlist.org/api/v3/taxonredirect/"+spListData.IUCNtaxonID)
     $('#kbm').attr("href","http://kenyabirdmap.adu.org.za/species_info.php?spp="+spListData.ADU)
@@ -191,4 +207,31 @@ $('#species').on('select2:select', function (e) {
 });
 
 
-  
+var UpdateOldMap = () => {
+    // Make a copy of the map (geojson)
+    let oldAtlasSp = oldAtlas;
+
+    // Check which period of the old atlas are selected
+    var check = $(".checkbox-oldAtlas").map(function() {
+        return $(this).is(':checked')
+    });
+
+    // loop through each grid cell
+    oldAtlasSp.features.map( grid =>{
+        // Find the data from data (table_adu) for that square
+        var adu_sq = table_adu.find( x => grid.properties.SqL == x.SqL & grid.properties.SqN == x.SqN)
+        if (adu_sq){
+            grid.properties.status = Math.max( (check[0] ? adu_sq.pre : 0) , (check[1] ? adu_sq.within : 0) , (check[2] ? adu_sq.post : 0) )
+            grid.properties.popup = '<b>grid:</b> ' + adu_sq.SqN + adu_sq.SqL + '<br><b>Status:</b> ' + status[grid.properties.status];
+            grid.properties.hide = status[grid.properties.status]=="" ? 1 : 0
+        } else {
+            grid.properties.hide = 1
+        }
+        return grid
+    })
+
+    mapOLD.getSource('grid_w_sp').setData(oldAtlasSp);
+    mapOLD.setPaintProperty('grid_w_sp_l','fill-color',["interpolate",["linear"],["get","status"],0,"#440154",1,"#33638d",2,"#fde725",3,"#3bb776"])//getFillColor(colormap_name, 0, 3, 'status')
+}
+
+$(".checkbox-oldAtlas").on('change',UpdateOldMap)
