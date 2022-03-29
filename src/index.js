@@ -90,7 +90,7 @@ mapOLD.on('load', function () {
 
 mapNEW.on('load', function () {
     new Spinner(opts).spin(document.getElementById('mapNEW'));
-    $.getJSON('http://api.adu.org.za/sabap2/v2/coverage/project/kenya?period=&format=geoJSON', function(coverageKBM){
+    $.getJSON('https://api.birdmap.africa/sabap2/v2/coverage/project/kenya?period=&format=geoJSON', function(coverageKBM){
         mapNEW.addSource('grid_KBM', {
             type: 'geojson',
             data: coverageKBM
@@ -185,7 +185,7 @@ $('#species').on('select2:select', function (e) {
   
     // Update the new map
     new Spinner(opts).spin(document.getElementById('mapNEW'));
-    $.getJSON('http://api.adu.org.za/sabap2/v2/summary/species/'+spListData.ADU+'/country/kenya?format=geoJSON',function (dataKBM){
+    $.getJSON('https://api.birdmap.africa/sabap2/v2/summary/species/'+spListData.ADU+'/country/kenya?format=geoJSON',function (dataKBM){
         mapNEW.getSource('grid_KBM').setData(dataKBM);
         var max = dataKBM.features.reduce((acc, x) => Math.max(acc, x.properties["full protocol"]), 0);
         var min = dataKBM.features.reduce((acc, x) => Math.min(acc, x.properties["full protocol"]), 10000);
@@ -199,7 +199,7 @@ $('#species').on('select2:select', function (e) {
     // Update the links
     $('#ebird').attr("href","https://ebird.org/species/"+spListData['Clements--code']+"/KE")
     $('#iucn').attr("href","https://apiv3.iucnredlist.org/api/v3/taxonredirect/"+spListData.IUCNtaxonID)
-    $('#kbm').attr("href","http://kenyabirdmap.adu.org.za/species_info.php?spp="+spListData.ADU)
+    $('#kbm').attr("href","https://kenya.birdmap.africa/species/"+spListData.ADU)
     $('#avibase').attr("href","https://avibase.bsc-eoc.org/species.jsp?avibaseid="+spListData.avibaseid)
     $('#inaturalist').attr("href","https://www.inaturalist.org/observations?place_id=7042&taxon_id="+spListData.iNaturalisttaxonID)
     $('#observado').attr("href","https://observation.org/species/"+spListData.ObservationorgID)
