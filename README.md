@@ -1,2 +1,2 @@
 # kenyan-bird-atlas-comparison
- Comparison of the Kenyan bird atlas
+ See https://github.com/Zoziologie/KenyaBirdAtlasViz for a more up-to-date version. 
